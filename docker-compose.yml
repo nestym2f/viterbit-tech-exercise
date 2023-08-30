@@ -1,21 +1,27 @@
 version: '3'
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-15}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
+  app:
+    container_name: tech-test-app
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    entrypoint: "/etc/entrypoint.sh"
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - ./:/var/www/html
+    links:
+      - mongo
+    ports:
+      - 80:8080
+
+  mongo:
+    container_name: tech-test-mongo
+    image: mongo:6
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - tech-test-mongodata:/data/db
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
+  tech-test-mongodata:
