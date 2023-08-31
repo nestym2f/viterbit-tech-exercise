@@ -4,7 +4,7 @@ current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 default: start
 
 .PHONY: build
-build: deps sf-build
+build: deps
 
 .PHONY: deps
 deps: composer-install
@@ -16,9 +16,6 @@ sf-clear-cache: CMD=c:c --no-debug
 
 sf sf-clear-cache:
 	@docker exec -it tech-test-app php bin/console $(CMD)
-
-sf-build:
-	@docker exec tech-test-app composer run build
 
 # 🐘 Composer
 .PHONY: composer-install

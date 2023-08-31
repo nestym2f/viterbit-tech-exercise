@@ -24,7 +24,8 @@ In this exercise, you're going to create an Application Tracking System PoC usin
 
 **Step 1:**
 
-Fork this Github repository that contains a Symfony setup with the necessary configuration for MongoDB integration. Make it **private** so that other candidates cannot see it :D.
+Please clone this repo to your own github (or other) repository or use the "Use template" Github option . 
+We recommend you make a **private repository** to keep process confidentiality and other candidates cannot see your solution ;-)
 
 **Step 2:**
 
@@ -32,7 +33,7 @@ Develop.
 
 **Step 3:**
 
-Provide us your fork link to see
+Provide us a zip file with your coded solution
 
 ## ATS PoC Requisitions
 
@@ -48,8 +49,7 @@ Our valuation will be based on the following criteria:
 
 1. Accurate implementation of the job application submission functionality.
 2. Appropriate utilization of MongoDB and Symfony components.
-3. Design and user-friendliness of the Twig-based user interface.
-4. Effective implementation of application filtering and status management.
-5. Quality and clarity of the code, including adherence to coding best practices. Solid, Hexagonal...
-6. Adequate test coverage, encompassing both unit and integration testing.
-7. Problem-solving skills and ability to make informed technical decisions.
+3. Effective implementation of application filtering and status management.
+4. Quality and clarity of the code, including adherence to coding best practices. Solid, Hexagonal...
+5. Adequate test coverage, encompassing both unit and integration testing.
+6. Problem-solving skills and ability to make informed technical decisions.
