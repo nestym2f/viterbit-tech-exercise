@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Startup Guide
 
 ## Start containers
@@ -53,3 +54,6 @@ Our valuation will be based on the following criteria:
 4. Quality and clarity of the code, including adherence to coding best practices. Solid, Hexagonal...
 5. Adequate test coverage, encompassing both unit and integration testing.
 6. Problem-solving skills and ability to make informed technical decisions.
+=======
+# viterbit-tech-exercise
+>>>>>>> cd63424260fba9c86236681458a01d00bb18b615
