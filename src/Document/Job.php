@@ -13,10 +13,7 @@ class Job extends BaseDocument
     #[MongoDB\Field(type: 'string')]
     private $description;
 
-    /**
-     * @MongoDB\Field(type="int")
-     * @Assert\GreaterThan(value=0, message="Salary must be greater than 0.")
-    */
+    #[MongoDB\Field(type: 'int')]
     private $salary;
 
     #[MongoDB\Field(type: 'string')]
