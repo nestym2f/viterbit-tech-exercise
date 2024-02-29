@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jobs List{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .btn { color: #fff !important; }
+    #task-th { width: 15% !important;}
+    #description-th { width: 40% !important;}
+</style>
+
+<div class="example-wrapper">
+    <h1>Welcome!!</h1>
+    <br>
+    This is our available jobs list. Please select one to view details!
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-condensed table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th class="text-center">Title</th>
+                        <th class="text-center">Location</th>
+                        <th id="description-th" class="text-center">Description</th>
+                        <th class="text-center">Salary</th>                            
+                        <th id="task-th" class="text-center">Task</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% if jobs | length == 0 %}
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">
+                                    No data to display
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% for job in jobs %}
+                            <tr>
+                                <td class="text-center">{{ job.title }}</td>
+                                <td class="text-center">{{ job.location }}</td>
+                                <td class="text-center">{{ job.description }}</td>
+                                <td class="text-center">{{ job.salary }}</td>
+                                <td class="text-center">
+                                    <a class="btn btn-info btn-sm" href="{{ path('job-details', {'job':job.id}) }}">View Job</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>                
+        </div>
+    </div>
+</div>
+{% endblock %}
