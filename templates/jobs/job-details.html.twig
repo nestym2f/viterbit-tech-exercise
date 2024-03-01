@@ -1,0 +1,168 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Job - {{ job.title }}{% endblock %}
+
+{% block body %}
+<style>
+    
+</style>
+
+<div class="container">
+    <h1 class="mt-2">{{ job.title }} information</h1>
+    <br>
+    Please click on "Apply for this job" to apply.
+    <br>
+    <br>
+    <div class="row">        
+        <div class="col-12 bg-light pt-3 pb-3">                
+            <div class="row mt-2 ">
+                <div class="col-12 col-md-6 col-sm-6 col-lg-6">
+                    <label>
+                        Job Title:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ job.title }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-sm-6 col-lg-6">
+                    <label>
+                        Salary:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ job.salary }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 col-md-6 col-sm-6 col-lg-6">
+                    <label>
+                        Location:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ job.location }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-sm-6 col-lg-6">
+                    <label>
+                        Number of Applications:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ job.numberOfApplications }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <label>
+                        Description:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ job.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <label>
+                        Notes:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ job.notes }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex pe-3 justify-content-end mt-5">
+            <a class="btn btn-secondary ms-2 mt-1 col-lg-1 col-md-2 col-sm-2 col-12"
+                    href="{{ path('jobs') }}">
+                Back
+            </a>					
+            <button type="button" class="btn btn-primary ms-2 mt-1 col-lg-2 col-md-3 col-sm-3 col-12"
+                data-bs-toggle="modal" data-bs-target="#application-form-modal">
+                Apply for this job
+            </button>
+        </div>
+    </div>
+    {# FORM APPLICATION SUBMIT #}
+    <div id="application-form-modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false">
+        <div class="modal-dialog"role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Apply For Job</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close">                        
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="liveAlertPlaceholder"></div>                    
+                    {{ form_start(form) }}                    
+                    <div class="col-12 bg-light pt-3 pb-3">
+                        <div class="row mt-2 ps-2 pe-2">
+                            <div class="col-12 mt-2">
+                                <label class="float-start">
+                                    Full Name
+                                </label>                             
+                                {{ form_widget(form.candidateName, {'attr' : {                                    
+                                    'class':'form-control',  'required': 'required'                                    
+                                }}) }}
+                            </div>
+                            <div class="col-12 mt-2">
+                                <label class="float-start">
+                                    Email
+                                </label>                             
+                                {{ form_widget(form.email, {'attr' : {                                    
+                                    'class':'form-control',  'required': 'required'                                    
+                                }}) }}
+                            </div>
+                        </div>
+                        <div class="row mt-2 ps-2 pe-2">
+                            <div class="col-12 mt-2">
+                                <label class="float-start">
+                                    Phone
+                                </label>                             
+                                {{ form_widget(form.phone, {'attr' : {                                    
+                                    'class':'form-control',  'required': 'required'                                    
+                                }}) }}
+                            </div>
+                            <div class="col-12 mt-2">
+                                <label class="float-start">
+                                    Position Applied For
+                                </label>
+                                {{ form_widget(form.positionAppliedFor, {'attr' : {                                    
+                                    'class':'form-control',  'required': 'required'                                    
+                                }}) }}
+                            </div>
+                        </div>
+                    </div>      
+                    {{ form_end(form) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="validateFields()">
+                        Submit Info
+                    </button>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}            
+    {{ parent() }}
+    <script src="{{ asset('jobs/jobs.js') }}"></script>    
+{% endblock %}
