@@ -34,6 +34,7 @@ class ApplicationService
     {
         $application->setApplicationDate(new \DateTime());
         $application->setJobId($jobId);
+        $application->setStatus('Pending');
         $this->dm->persist($application);
         $this->dm->flush();
     }
