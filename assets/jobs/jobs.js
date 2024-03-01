@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('application_email').value == '';
-    document.getElementById('application_phone').value == '';
-    document.getElementById('application_candidateName').value == '';
-    document.getElementById('application_positionAppliedFor').value == '';    
+    document.getElementById('application_email').value = '';
+    document.getElementById('application_phone').value = '';
+    document.getElementById('application_candidateName').value = '';
+    document.getElementById('application_positionAppliedFor').value = '';    
 });
 const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 
@@ -13,7 +13,7 @@ const validateFields = () => {
     const phoneNumber = document.getElementById('application_phone').value;
     const candidateName = document.getElementById('application_candidateName').value;
     const positionAppliedFor = document.getElementById('application_positionAppliedFor').value;
-    
+    //validate fields
     if(!emailRegex.test(email)){
         appendAlert('Please check your email!', 'danger')    
         return;
@@ -47,5 +47,9 @@ const appendAlert = (message, type) => {
     '</div>'
   ].join('')
 
-  alertPlaceholder.append(wrapper)
+  alertPlaceholder.append(wrapper)  
+
+  setTimeout(() => {
+    wrapper.remove();
+  }, 3000);
 }
