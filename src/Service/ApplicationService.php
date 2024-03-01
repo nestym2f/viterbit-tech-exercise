@@ -21,8 +21,13 @@ class ApplicationService
     }
 
     public function getAllApplications()
-    {
-        return $this->getApplicationRepository()->findAll();
+    {        
+        $query = $this->dm->createQueryBuilder(Application::class)
+        ->sort('applicationDate', 'DESC')
+        ->getQuery();
+
+        $applications = $query->execute();
+        return $applications;
     }
 
     public function getApplicationById($id)
