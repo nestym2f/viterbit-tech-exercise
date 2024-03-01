@@ -80,7 +80,7 @@ class Application extends BaseDocument
         return $this->applicationDate;
     }
 
-    public function setApplicationDate(string $applicationDate): void
+    public function setApplicationDate(\DateTimeInterface $applicationDate): void
     {
         $this->applicationDate = $applicationDate;        
     }
