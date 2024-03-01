@@ -9,19 +9,30 @@ use Symfony\Component\Validator\Constraints\Date;
 class Application extends BaseDocument
 {
     #[MongoDB\Field(type: 'string')]
+    #[Assert\NotBlank]
     private $candidateName;
 
     #[MongoDB\Field(type: 'string')]
-    private $contactInformation;
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    private $email;
 
     #[MongoDB\Field(type: 'string')]
+    #[Assert\NotBlank]
+    private $phone;
+
+    #[MongoDB\Field(type: 'string')]
+    #[Assert\NotBlank]
     private $positionAppliedFor;
 
     #[MongoDB\Field(type: 'date')]
     private $applicationDate;
 
     #[MongoDB\Field(type: 'string')]
-    private $status;    
+    private $status;   
+
+    #[MongoDB\Field(type: 'string')]
+    private $jobId;
 
     //Functions
     public function getCandidateName(): ?string
@@ -34,14 +45,24 @@ class Application extends BaseDocument
         $this->candidateName = $candidateName;        
     }
 
-    public function getContactInformation(): ?string
+    public function getEmail(): ?string
     {
-        return $this->contactInformation;
+        return $this->email;
     }
 
-    public function setContactInformation(string $contactInformation): void
+    public function setEmail(string $email): void
     {
-        $this->contactInformation = $contactInformation;        
+        $this->email = $email;        
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): void
+    {
+        $this->phone = $phone;        
     }
 
     public function getPositionAppliedFor(): ?string
@@ -59,7 +80,7 @@ class Application extends BaseDocument
         return $this->applicationDate;
     }
 
-    public function setApplicationDate(string $applicationDate): void
+    public function setApplicationDate(\DateTimeInterface $applicationDate): void
     {
         $this->applicationDate = $applicationDate;        
     }
@@ -72,5 +93,15 @@ class Application extends BaseDocument
     public function setStatus(string $status): void
     {
         $this->status = $status;        
+    }
+
+    public function getJobId(): ?string
+    {
+        return $this->jobId;
+    }
+
+    public function setJobId(string $jobId): void
+    {
+        $this->jobId = $jobId;        
     }    
 }

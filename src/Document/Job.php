@@ -13,14 +13,14 @@ class Job extends BaseDocument
     #[MongoDB\Field(type: 'string')]
     private $description;
 
-    /**
-     * @MongoDB\Field(type="int")
-     * @Assert\GreaterThan(value=0, message="Salary must be greater than 0.")
-    */
+    #[MongoDB\Field(type: 'int')]
     private $salary;
 
     #[MongoDB\Field(type: 'string')]
     private $location;
+
+    #[MongoDB\Field(type: 'int')]
+    private $numberOfApplications;
 
     #[MongoDB\Field(type: 'string')]
     private $notes;    
@@ -56,6 +56,16 @@ class Job extends BaseDocument
         $this->salary = $salary;        
     }
 
+    public function getNumberOfApplications(): ?int
+    {
+        return $this->numberOfApplications;
+    }
+
+    public function setNumberOfApplications(int $numberOfApplications): void
+    {
+        $this->numberOfApplications = $numberOfApplications;        
+    }
+    
     public function getLocation(): ?string
     {
         return $this->location;
