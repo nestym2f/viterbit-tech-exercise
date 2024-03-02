@@ -54,10 +54,10 @@ class ApplicationService
         return $this->getApplicationRepository()->find($id);
     }
 
-    public function saveApplication(Application $application, $jobId)    
+    public function saveApplication(Application $application, $jobTitle)    
     {
         $application->setApplicationDate(new \DateTime());
-        $application->setJobId($jobId);
+        $application->setJob($jobTitle);
         $application->setStatus('Pending');
         $this->dm->persist($application);
         $this->dm->flush();
