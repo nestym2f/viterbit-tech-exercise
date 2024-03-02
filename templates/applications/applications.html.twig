@@ -14,7 +14,20 @@
             <div>{{ message }}</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    {% endfor %}
+    {% endfor %}   
+
+    <div class="row">
+        <div class="col-12">
+            <div class="ml-auto">                
+                <button class="btn btn-warning float-end mb-2" data-bs-toggle="modal" data-bs-target="#filters-form-modal">
+                    Filters
+                </button>
+                <button type="button" class="btn btn-danger float-end me-2 mb-2" onclick="location.href='{{ path('applications') }}'">
+                    Clear Filters
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
@@ -56,5 +69,70 @@
             </div>                
         </div>
     </div>
+    {# FORM FILTERS #}
+    <div id="filters-form-modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false">
+        <div class="modal-dialog"role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filter Applications</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close">                        
+                    </button>
+                </div>
+                <div class="modal-body text-center">                  
+                    <form id="filter-form" action="{{ path('applications') }}">                    
+                        <label class="ms-1 float-start">
+                        Position:
+                        </label>
+                        <input class="form-control my-2"
+                            name="position-string"
+                            placeholder="Ex. Programmer, Designer, etc."
+                            value="{{ app.request.get('position-string') }}">
+                        <label class="ms-1 float-start">
+                        Status:
+                        </label>
+                        <select class="form-select"
+                                name="status">
+                            <option {% if not app.request.get('status') %}
+                            disabled selected
+                                    {% else %}
+                            disabled
+                                    {% endif %}>
+                                Select Status
+                            </option>                            
+                            <option value="Pending"
+                                {% if app.request.get('status') and app.request.get('status') == 'Pending' %}
+                                selected
+                                    {% endif %}>                                    
+                                Pending
+                            </option>
+                            <option value="Processed"
+                                {% if app.request.get('status') and app.request.get('status') == 'Processed' %}
+                                selected
+                                    {% endif %}>                                    
+                                Processed
+                            </option>                            
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='{{ path('applications') }}'">
+                        Clear Filters
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="submitFilters()">
+                        Search
+                    </button>
+                </div>                
+            </div>
+        </div>
+    </div>
 </div>
+{% endblock %}
+{% block javascripts %}            
+    {{ parent() }}
+    <script src="{{ asset('applications/applications.js') }}"></script>    
 {% endblock %}
