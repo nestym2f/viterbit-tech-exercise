@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Application{% endblock %}
+
+{% block body %}
+<style>
+    
+</style>
+
+<div class="container">
+    <h1 class="mt-2">Application information</h1>
+    <br>    
+    <br>
+    <div class="row">        
+        <div class="col-12 bg-light pt-3 pb-3">                
+            <div class="row mt-2 ">
+                <div class="col-12 col-md-6 col-sm-6 col-lg-6">
+                    <label>
+                        Candidate Name:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ application.candidateName }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-sm-6 col-lg-6">
+                    <label>
+                        Email:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ application.email }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 col-md-6 col-sm-6 col-lg-6">
+                    <label>
+                        Phone:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ application.phone }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-sm-6 col-lg-6">
+                    <label>
+                        Position Applied For:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ application.positionAppliedFor }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-sm-6 col-lg-6">
+                    <label>
+                        Application Date:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ application.applicationDate | date("Y-m-d") }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-sm-6 col-lg-6">
+                    <label>
+                        Status:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ application.status }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <label>
+                        Job:
+                    </label>
+                    <div class="border bg-dark text-light d-flex w-100 pt-2 pb-2 ps-2">
+                        <div class="text-light">
+                                {{ application.job }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 d-flex pe-3 justify-content-end mt-5">
+            <a class="btn btn-secondary ms-2 mt-1 col-lg-1 col-md-2 col-sm-2 col-12"
+                    href="{{ path('applications') }}">
+                Back
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}            
+    {{ parent() }}
+    <script src="{{ asset('applications/applications.js') }}"></script>    
+{% endblock %}
