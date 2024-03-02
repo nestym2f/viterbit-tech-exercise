@@ -44,4 +44,29 @@ class JobServiceTest extends TestCase
         $this->assertCount(1, $jobs);
         $this->assertSame($job, $jobs[0]);
     }
+
+    public function testGetJobById()
+    {        
+        $job = new Job();        
+        $job->setTitle('Job 1');
+        $job->setDescription('Testing description');
+        $job->setSalary('100');
+        $job->setLocation('Testing Location');
+        $job->setNumberOfApplications('1');
+        $job->setNotes('Testing Notes');
+        
+        $this->jobRepository->expects($this->once())
+            ->method('find')
+            ->with($this->equalTo('job_id'))
+            ->will($this->returnValue($job));
+        
+        $this->dm->expects($this->once())
+            ->method('getRepository')
+            ->with($this->equalTo(Job::class))
+            ->will($this->returnValue($this->jobRepository));
+        
+        $returnedJob = $this->jobService->getJobById('job_id');
+        dump($returnedJob);
+        $this->assertSame($job, $returnedJob);
+    }
 }
