@@ -32,7 +32,7 @@ class Application extends BaseDocument
     private $status;   
 
     #[MongoDB\Field(type: 'string')]
-    private $jobId;
+    private $job;
 
     //Functions
     public function getCandidateName(): ?string
@@ -95,13 +95,13 @@ class Application extends BaseDocument
         $this->status = $status;        
     }
 
-    public function getJobId(): ?string
+    public function getJob(): ?string
     {
-        return $this->jobId;
+        return $this->job;
     }
 
-    public function setJobId(string $jobId): void
+    public function setJob(string $job): void
     {
-        $this->jobId = $jobId;        
+        $this->job = $job;        
     }    
 }
