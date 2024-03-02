@@ -31,6 +31,11 @@ class ApplicationController extends AbstractController
     #[Route('/applications/details/{application}', name: 'application-details')]
     public function applicationsDetailsAction(Application $application, Request $request): Response
     {
+        //retrieve application by id
+        $job = $this->applicationService->getApplicationById($application->getId());
 
+        return $this->render('applications/application-details.html.twig', [
+            'application' => $application,            
+        ]);
     }
 }
