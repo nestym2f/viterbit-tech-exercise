@@ -69,4 +69,44 @@ class JobServiceTest extends TestCase
         dump($returnedJob);
         $this->assertSame($job, $returnedJob);
     }
+
+    public function testUpdateNumberOfApplications()
+    {
+        $job = $this->getMockBuilder(Job::class)
+        ->disableOriginalConstructor()        
+        ->getMock();
+          
+        $job->setTitle('Job 1');
+        $job->setDescription('Testing description');
+        $job->setSalary('100');
+        $job->setLocation('Testing Location');
+        $job->setNumberOfApplications('1');
+        $job->setNotes('Testing Notes');
+
+        $job->expects($this->once())
+            ->method('getNumberOfApplications')
+            ->willReturn(1);
+
+        //dump($job);
+
+        $job->expects($this->once())
+            ->method('setNumberOfApplications')
+            ->with($this->equalTo(2));
+        
+        $this->jobRepository->expects($this->once())
+            ->method('find')
+            ->with($this->equalTo('job_id'))
+            ->willReturn($job);
+        
+        $this->dm->expects($this->once())
+            ->method('getRepository')
+            ->with($this->equalTo(Job::class))
+            ->willReturn($this->jobRepository);
+        //testing the flushing
+        $this->dm->expects($this->once())
+            ->method('flush');
+        
+        $this->jobService->updateNumberOfApplications('job_id');
+    }
+
 }
