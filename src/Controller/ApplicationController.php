@@ -19,12 +19,18 @@ class ApplicationController extends AbstractController
     }
 
     #[Route('/applications', name: 'applications')]
-    public function jobsListAction(): Response
+    public function applicationsListAction(Request $request): Response
     {
-        //retrieve all applications
-        $applications = $this->applicationService->getAllApplications();
+        $applications = $this->applicationService->getApplicationsFilters($request);     
+        
         return $this->render('applications/applications.html.twig', [
             'applications' => $applications,
         ]);
+    }
+
+    #[Route('/applications/details/{application}', name: 'application-details')]
+    public function applicationsDetailsAction(Application $application, Request $request): Response
+    {
+
     }
 }
