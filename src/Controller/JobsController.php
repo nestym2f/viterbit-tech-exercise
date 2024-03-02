@@ -22,7 +22,7 @@ class JobsController extends AbstractController
         $this->jobService = $jobService;
         $this->applicationService = $applicationService;
     }
-
+    #[Route('/', name: 'home')]
     #[Route('/jobs', name: 'jobs')]
     public function jobsListAction(): Response
     {
