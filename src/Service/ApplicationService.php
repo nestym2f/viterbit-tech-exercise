@@ -3,6 +3,8 @@ namespace App\Service;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use App\Document\Application;
+use Symfony\Component\HttpFoundation\Request;
+use MongoDB\BSON\Regex;
 
 class ApplicationService
 {
@@ -21,19 +23,42 @@ class ApplicationService
     }
 
     public function getAllApplications()
-    {
-        return $this->getApplicationRepository()->findAll();
+    {        
+        $query = $this->dm->createQueryBuilder(Application::class)
+        ->sort('applicationDate', 'DESC')
+        ->getQuery();
+
+        $applications = $query->execute();
+        return $applications;
     }
 
+    public function getApplicationsFilters(Request $request)
+    {        
+        $positionString = $request->get('position-string');
+        $status = $request->get('status');
+        
+        $queryBuilder = $this->dm->createQueryBuilder(Application::class);
+        if (!empty($positionString)) {                        
+            $queryBuilder->field('positionAppliedFor')->equals($positionString);
+           }
+        if (!empty($status)) {            
+            $queryBuilder->field('status')->equals($status);
+        }
+        $queryBuilder->sort('applicationDate', 'DESC');        
+        $applications = $queryBuilder->getQuery()->execute();         
+        
+        return $applications;
+    }
     public function getApplicationById($id)
     {
         return $this->getApplicationRepository()->find($id);
     }
 
-    public function saveApplication(Application $application, $jobId)    
+    public function saveApplication(Application $application, $jobTitle)    
     {
         $application->setApplicationDate(new \DateTime());
-        $application->setJobId($jobId);
+        $application->setJob($jobTitle);
+        $application->setStatus('Pending');
         $this->dm->persist($application);
         $this->dm->flush();
     }

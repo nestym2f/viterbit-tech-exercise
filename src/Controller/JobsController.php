@@ -48,7 +48,7 @@ class JobsController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {            
             // Save the application to the database
-            $this->applicationService->saveApplication($application, $job->getId());
+            $this->applicationService->saveApplication($application, $job->getTitle());
             $this->jobService->updateNumberOfApplications($job->getId());
             $this->addFlash('success', 'Your Application was successfully submitted!');
             return $this->redirectToRoute('jobs');

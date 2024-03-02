@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Applications List{% endblock %}
+{% block body %}
+
+<div class="example-wrapper container">
+    <h1>Welcome!!</h1>
+    <br>
+    This is our available applications list. Please select one to view details!
+    <br>
+    <br>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <div>{{ message }}</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}   
+
+    <div class="row">
+        <div class="col-12">
+            <div class="ml-auto">                
+                <button class="btn btn-warning float-end mb-2" data-bs-toggle="modal" data-bs-target="#filters-form-modal">
+                    Filters
+                </button>
+                <button type="button" class="btn btn-danger float-end me-2 mb-2" onclick="location.href='{{ path('applications') }}'">
+                    Clear Filters
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-condensed table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th id="description-th" class="text-center">Candidate Name</th>
+                        <th id="description-th" class="text-center">Email</th>
+                        <th class="text-center">Phone</th>
+                        <th class="text-center">Position</th>
+                        <th id="date-th" class="text-center">Date</th>
+                        <th class="text-center">Status</th>                        
+                        <th id="task-th" class="text-center">Task</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% if applications | length == 0 %}
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">
+                                    No data to display
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% for application in applications %}
+                            <tr>
+                                <td class="text-center">{{ application.candidateName }}</td>
+                                <td class="text-center">{{ application.email }}</td>
+                                <td class="text-center">{{ application.phone }}</td>
+                                <td class="text-center">{{ application.positionAppliedFor }}</td>
+                                <td class="text-center">{{ application.applicationDate | date("Y-m-d") }}</td>
+                                <td class="text-center">{{ application.status }}</td>
+                                <td class="text-center">
+                                    <a class="btn btn-info btn-sm" href="{{ path('application-details', {'application':application.id}) }}">View Application</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>                
+        </div>
+    </div>
+    {# FORM FILTERS #}
+    <div id="filters-form-modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false">
+        <div class="modal-dialog"role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filter Applications</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close">                        
+                    </button>
+                </div>
+                <div class="modal-body text-center">                  
+                    <form id="filter-form" action="{{ path('applications') }}">                    
+                        <label class="ms-1 float-start">
+                        Position:
+                        </label>
+                        <input class="form-control my-2"
+                            name="position-string"
+                            placeholder="Ex. Programmer, Designer, etc."
+                            value="{{ app.request.get('position-string') }}">
+                        <label class="ms-1 float-start">
+                        Status:
+                        </label>
+                        <select class="form-select"
+                                name="status">
+                            <option {% if not app.request.get('status') %}
+                            disabled selected
+                                    {% else %}
+                            disabled
+                                    {% endif %}>
+                                Select Status
+                            </option>                            
+                            <option value="Pending"
+                                {% if app.request.get('status') and app.request.get('status') == 'Pending' %}
+                                selected
+                                    {% endif %}>                                    
+                                Pending
+                            </option>
+                            <option value="Processed"
+                                {% if app.request.get('status') and app.request.get('status') == 'Processed' %}
+                                selected
+                                    {% endif %}>                                    
+                                Processed
+                            </option>                            
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='{{ path('applications') }}'">
+                        Clear Filters
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="submitFilters()">
+                        Search
+                    </button>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}            
+    {{ parent() }}
+    <script src="{{ asset('applications/applications.js') }}"></script>    
+{% endblock %}
